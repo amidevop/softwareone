@@ -24,7 +24,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'  # Use the Python version supported by AWS Lambda
+          python-version: '3.12'  # Match AWS Lambda supported Python version
 
       - name: Install Dependencies
         run: |
@@ -35,7 +35,7 @@ jobs:
       - name: Package Code
         run: |
           mkdir -p package
-          cp lambda_function.py package/
+          cp python.py package/lambda_function.py
           cd package
           zip -r ../lambda_function.zip .
           cd ..
@@ -43,7 +43,7 @@ jobs:
       - name: Configure AWS Credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::686255955438:role/oidc_eks
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to AWS Lambda
