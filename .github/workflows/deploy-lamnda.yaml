@@ -43,7 +43,7 @@ jobs:
       - name: Configure AWS Credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::<account-id>:role/<your-iam-role-name>
+          role-to-assume: arn:aws:iam::686255955438:role/oidc_eks
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Deploy to AWS Lambda
